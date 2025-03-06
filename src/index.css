@@ -1,0 +1,305 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* System Fonts */
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  /* Set default colors from our design system */
+  --color-primary: #b89f8d;
+  --color-primary-light: #d6c7bb;
+  --color-primary-dark: #8a7567;
+  --color-secondary: #f5f0eb;
+  --color-secondary-dark: #e5dbd2;
+
+  /* Mobile viewport adjustments */
+  height: 100%;
+  width: 100%;
+
+  /* PWA specific styles */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  position: fixed; /* Prevents bounce on iOS */
+  background-color: var(--color-secondary);
+  color: #3c3026;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: none; /* Prevents pull-to-refresh */
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto; /* Allow scrolling within the app container */
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 0; /* Hide scrollbars but keep functionality */
+  background: transparent;
+}
+
+/* Native-like element styling */
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+button {
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Safe area utilities */
+.native-container {
+  /* Base padding that will be overridden in standalone mode */
+  padding: 0;
+}
+
+.status-bar-spacer {
+  height: 0; /* Default height */
+}
+
+.safe-area-inset {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.safe-area-bottom {
+  height: 0; /* Default height */
+}
+
+/* Glass effect utilities */
+.glass-light {
+  background-color: rgba(245, 240, 235, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+}
+
+.glass-primary {
+  background-color: rgba(184, 159, 141, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 1rem;
+  border: 1px solid rgba(184, 159, 141, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+
+/* PWA specific overrides */
+@media (display-mode: standalone), (display-mode: fullscreen) {
+  .native-container {
+    /* Include safe areas in standalone/fullscreen mode */
+    padding: env(safe-area-inset-top) env(safe-area-inset-right)
+      env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+
+  .status-bar-spacer {
+    height: env(safe-area-inset-top, 44px);
+  }
+
+  .safe-area-inset {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+
+  .safe-area-bottom {
+    height: env(safe-area-inset-bottom, 0);
+  }
+
+  .sticky.top-0 {
+    top: env(safe-area-inset-top, 0);
+  }
+
+  .fixed.bottom-4 {
+    bottom: max(1rem, calc(1rem + env(safe-area-inset-bottom)));
+  }
+}
+
+/* Prevent text selection */
+.no-select {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* iOS-like animations */
+@keyframes ios-push-in {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes ios-push-out {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.ios-push-in {
+  animation: ios-push-in 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.ios-push-out {
+  animation: ios-push-out 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Native fade transitions */
+.native-fade-enter {
+  opacity: 0;
+}
+
+.native-fade-enter-active {
+  opacity: 1;
+  transition: opacity 200ms ease-out;
+}
+
+.native-fade-exit {
+  opacity: 1;
+}
+
+.native-fade-exit-active {
+  opacity: 0;
+  transition: opacity 200ms ease-in;
+}
+
+/* HANDLE FLOATING */
+/* ================================================================================ */
+/* Add these to your index.css */
+
+/* Floating component animations */
+@keyframes float-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-out-down {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.float-in {
+  animation: float-in-up 0.3s cubic-bezier(0.21, 1.02, 0.73, 1) forwards;
+}
+
+.float-out {
+  animation: float-out-down 0.2s cubic-bezier(0.06, 0.71, 0.55, 1) forwards;
+}
+
+/* Button press effect */
+@media (hover: none) {
+  button:active {
+    transform: scale(0.97);
+    transition: transform 0.1s ease-in-out;
+  }
+
+  .no-press:active {
+    transform: none;
+  }
+}
+
+/* Touch ripple effect */
+.touch-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.touch-ripple::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.touch-ripple:active::after {
+  opacity: 0.3;
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(40, 40);
+    opacity: 0;
+  }
+}
+
+/* Stack floating components with proper spacing */
+.z-50 + .z-50 {
+  bottom: calc(6rem + env(safe-area-inset-bottom, 0));
+}
+
+/* Banner slide-in animation */
+@keyframes banner-slide-down {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.banner-slide-in {
+  animation: banner-slide-down 0.3s ease-out forwards;
+}
+
+/* Add some spacing for content when banner is visible */
+.sticky.top-0 + .safe-area-inset {
+  padding-top: calc(1rem + 3.5rem); /* Extra space for the banner */
+}
