@@ -2,28 +2,38 @@
 import React from "react";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Layout from "./components/Layout";
-
-const Home = React.lazy(() => import("./pages/Home"));
-
-const LoadingFallback: React.FC = () => (
-  <div className="flex items-center justify-center min-h-screen bg-secondary">
-    <div className="text-primary text-lg">Loading...</div>
-  </div>
-);
+import NotFound from "./components/NotFound";
+import Dashboard from "./pages/Dashboard"; // Assuming you have this page
+import LandingPage from "./pages/LandingPage";
+import PasswordPage from "./pages/PasswordPage";
+import AuthGuard from "./components/AuthGuard"; // We'll create this component
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <React.Suspense fallback={<LoadingFallback />}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-          </Route>
+      <Routes>
+        {/* Root path shows landing page with list of weddings */}
+        <Route path="/" element={<LandingPage />} />
 
-          {/* 404 page */}
-          <Route path="*" element={<p>Not Found</p>} />
-        </Routes>
-      </React.Suspense>
+        {/* Password protected route */}
+        <Route path="/d/:projectId" element={<PasswordPage />} />
+
+        {/* Main app with dynamic project ID (protected) */}
+        <Route
+          path="/app/:projectId"
+          element={
+            <AuthGuard>
+              <Layout />
+            </AuthGuard>
+          }
+        >
+          <Route index element={<Dashboard />} />
+          {/* Add more routes as needed */}
+        </Route>
+
+        {/* Catch-all route for any other paths */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </BrowserRouter>
   );
 };

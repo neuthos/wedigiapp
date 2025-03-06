@@ -1,12 +1,13 @@
 {
-  "name": "Digital Wedding Album",
-  "short_name": "Wedding Album",
-  "description": "A beautiful digital album for your special day",
-  "start_url": "/",
+  "name": "Sarah Johnson & Michael Smith Wedding",
+  "short_name": "Sarah & Michael",
+  "description": "Wedding app for our special day",
+  "start_url": "/app/12345?cred=MTIzNDU6MTc0MTI3MTQ4MzcxMA==",
+  "id": "/app/12345",
   "display": "standalone",
-  "background_color": "#f5f0eb",
+  "orientation": "portrait",
   "theme_color": "#b89f8d",
-  "orientation": "portrait-primary",
+  "background_color": "#f5f0eb",
   "icons": [
     {
       "src": "/icons/128x128.png",
