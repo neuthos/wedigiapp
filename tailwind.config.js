@@ -60,6 +60,7 @@ module.exports = {
     },
   },
   plugins: [
+    require("@tailwindcss/line-clamp"),
     function ({addComponents, theme}) {
       const glassEffect = {
         ".glass": {

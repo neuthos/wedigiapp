@@ -27,6 +27,10 @@
   -webkit-text-size-adjust: 100%;
 }
 
+main {
+  padding: 0 !important;
+}
+
 html,
 body {
   margin: 0;

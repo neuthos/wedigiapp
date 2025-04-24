@@ -128,7 +128,7 @@ const Layout: React.FC = () => {
       <InstallPrompt />
 
       {/* Main content with safe area padding */}
-      <main className="flex-1 px-4 py-4 safe-area-inset">
+      <main className="flex-1 safe-area-inset">
         {/* Pass wedding data and user role to the children */}
         <Outlet context={{weddingData, userRole}} />
       </main>

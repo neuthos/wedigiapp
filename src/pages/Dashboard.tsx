@@ -2,6 +2,7 @@
 import React from "react";
 import {useOutletContext} from "react-router-dom";
 import {WeddingProject} from "../services/MockApiService";
+import CardHeader from "../components/Dashboard/CardHeader";
 
 interface LayoutContext {
   weddingData: WeddingProject;
@@ -24,6 +25,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="flex flex-col space-y-6">
+      <CardHeader />
       {/* Welcome section */}
       <section>
         <div className="bg-gradient-to-r from-primary-dark to-primary rounded-xl p-6 text-white relative overflow-hidden">
